@@ -29,6 +29,8 @@ FetchContent_Declare(
 
 set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(BUILD_GAMES OFF CACHE BOOL "" FORCE)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 
 FetchContent_MakeAvailable(raylib)
 

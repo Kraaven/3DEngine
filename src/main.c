@@ -1,23 +1,22 @@
+#include "data_structures/generated/stack_int.h"
 #include "raylib.h"
 
-int main(void)
-{
-    const int screenWidth = 1600;
-    const int screenHeight = 900;
+int main(void) {
+  const int screenWidth = 1600;
+  const int screenHeight = 900;
 
-    InitWindow(screenWidth, screenHeight, "Raylib Hello World");
+  InitWindow(screenWidth, screenHeight, "Raylib Hello World");
 
-    SetTargetFPS(60);
+  SetTargetFPS(60);
 
-    while (!WindowShouldClose())
-    {
-        BeginDrawing();
-            ClearBackground(RAYWHITE);
-            DrawText("Hello, Raylib!", 250, 200, 30, DARKGRAY);
-        EndDrawing();
-    }
+  while (!WindowShouldClose()) {
+    BeginDrawing();
+    ClearBackground(RAYWHITE);
+    DrawText("Hello, Raylib!", 250, 200, 30, DARKGRAY);
+    EndDrawing();
+  }
 
-    CloseWindow();
+  CloseWindow();
 
-    return 0;
+  return 0;
 }
