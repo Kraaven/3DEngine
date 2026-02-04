@@ -1,1 +1,5 @@
 /build
+/.cache
+/src/data_structures/generated
+/.cache
+/.cache/clangd

@@ -4,67 +4,77 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+{{TYPE_INCLUDES}}
 
 typedef struct StackNode_{{TYPE_NAME}} {
     {{TYPE}} data;
     struct StackNode_{{TYPE_NAME}} *next;
 } StackNode_{{TYPE_NAME}};
 
-typedef struct {
-    StackNode_{{TYPE_NAME}} *head;
+typedef struct Stack_{{TYPE_NAME}}{
+    StackNode_{{TYPE_NAME}} *top;
     size_t size;
 } Stack_{{TYPE_NAME}};
 
 static inline Stack_{{TYPE_NAME}} *stack_{{TYPE_NAME}}_create(void) {
     Stack_{{TYPE_NAME}} *s = malloc(sizeof(*s));
     if (!s) { perror("malloc"); exit(EXIT_FAILURE); }
-    s->head = NULL;
+    s->top = NULL;
     s->size = 0;
     return s;
 }
 
 static inline void stack_{{TYPE_NAME}}_destroy(Stack_{{TYPE_NAME}} *s) {
-    StackNode_{{TYPE_NAME}} *curr = s->head;
-    while (curr) {
-        StackNode_{{TYPE_NAME}} *tmp = curr;
-        curr = curr->next;
+    while (s->top) {
+        StackNode_{{TYPE_NAME}} *tmp = s->top;
+        s->top = tmp->next;
         free(tmp);
     }
     free(s);
 }
 
-static inline void stack_{{TYPE_NAME}}_push(Stack_{{TYPE_NAME}} *s, {{TYPE}} value) {
+static inline void stack_{{TYPE_NAME}}_push(
+    Stack_{{TYPE_NAME}} *s, {{TYPE}} value
+) {
     StackNode_{{TYPE_NAME}} *node = malloc(sizeof(*node));
     if (!node) { perror("malloc"); exit(EXIT_FAILURE); }
     node->data = value;
-    node->next = s->head;
-    s->head = node;
+    node->next = s->top;
+    s->top = node;
     s->size++;
 }
 
-static inline {{TYPE}} stack_{{TYPE_NAME}}_pop(Stack_{{TYPE_NAME}} *s) {
-    if (!s->head) { fprintf(stderr, "Stack empty\n"); exit(EXIT_FAILURE); }
-    StackNode_{{TYPE_NAME}} *node = s->head;
+static inline {{TYPE}} stack_{{TYPE_NAME}}_pop(
+    Stack_{{TYPE_NAME}} *s
+) {
+    if (!s->top) {
+        fprintf(stderr, "Stack empty\n");
+        exit(EXIT_FAILURE);
+    }
+    StackNode_{{TYPE_NAME}} *node = s->top;
     {{TYPE}} val = node->data;
-    s->head = node->next;
+    s->top = node->next;
     free(node);
     s->size--;
     return val;
 }
 
-static inline {{TYPE}} stack_{{TYPE_NAME}}_peek(Stack_{{TYPE_NAME}} *s) {
-    if (!s->head) { fprintf(stderr, "Stack empty\n"); exit(EXIT_FAILURE); }
-    return s->head->data;
+static inline {{TYPE}} stack_{{TYPE_NAME}}_peek(
+    Stack_{{TYPE_NAME}} *s
+) {
+    if (!s->top) {
+        fprintf(stderr, "Stack empty\n");
+        exit(EXIT_FAILURE);
+    }
+    return s->top->data;
 }
 
-static inline {{TYPE}} stack_{{TYPE_NAME}}_query(Stack_{{TYPE_NAME}} *s, size_t index) {
-    if (index >= s->size) { fprintf(stderr, "Index out of bounds\n"); exit(EXIT_FAILURE); }
-    StackNode_{{TYPE_NAME}} *curr = s->head;
-    for (size_t i = 0; i < index; i++) curr = curr->next;
-    return curr->data;
+static inline size_t stack_{{TYPE_NAME}}_size(Stack_{{TYPE_NAME}} *s) {
+    return s->size;
 }
 
-static inline int stack_{{TYPE_NAME}}_empty(Stack_{{TYPE_NAME}} *s) { return s->size == 0; }
-static inline size_t stack_{{TYPE_NAME}}_size(Stack_{{TYPE_NAME}} *s) { return s->size; }
+static inline int stack_{{TYPE_NAME}}_empty(Stack_{{TYPE_NAME}} *s) {
+    return s->size == 0;
+}
 
 #endif

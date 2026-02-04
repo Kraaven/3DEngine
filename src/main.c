@@ -1,4 +1,3 @@
-#include "data_structures/generated/stack_int.h"
 #include "raylib.h"
 
 int main(void) {
