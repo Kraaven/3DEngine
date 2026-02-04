@@ -1,1 +1,3 @@
 struct transform transform.h
+struct vec3 vectors.h
+struct face face.h

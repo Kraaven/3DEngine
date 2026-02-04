@@ -3,3 +3,4 @@
 /src/data_structures/generated
 /.cache
 /.cache/clangd
+/release
