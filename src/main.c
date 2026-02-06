@@ -1,3 +1,4 @@
+#include "mesh.h"
 #include "raylib.h"
 
 int main(void) {
@@ -7,6 +8,10 @@ int main(void) {
   InitWindow(screenWidth, screenHeight, "Raylib Hello World");
 
   SetTargetFPS(60);
+
+  mesh *new = mesh_load("resources/meshes/monkey.3d");
+  if (new == NULL)
+    printf("3D File failed to load\n");
 
   while (!WindowShouldClose()) {
     BeginDrawing();

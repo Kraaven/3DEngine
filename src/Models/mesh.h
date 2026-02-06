@@ -8,6 +8,6 @@ typedef struct mesh {
 } mesh;
 
 mesh *mesh_create();
-mesh *mesh_load();
+mesh *mesh_load(char *fileName);
 
 #endif // !MESH
